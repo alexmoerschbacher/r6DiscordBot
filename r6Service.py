@@ -9,6 +9,5 @@ class R6Service:
         return results
 
 service = R6Service()
-print(service.getCurrentSeasonStats())
 
     
