@@ -1,6 +1,6 @@
 from typing import List
 from requests import get
-from Mappers.profileDataMapper import ProfileDataMapper
+from Mappers.r6ProfileDataMapper import R6ProfileDataMapper
 
 from Auth.auth import Auth
 class R6ServiceClient:
@@ -25,7 +25,7 @@ class R6ServiceClient:
         for username, id in playerProfileIds.items():
             response = get('https://prod.datadev.ubisoft.com/v1/profiles/' + id + '/playerstats', params=params, headers=headers)
             profileData = response.json()
-            stats.append(ProfileDataMapper.profileDataPlayerStatsMapper(profileData, username))
+            stats.append(R6ProfileDataMapper.r6ProfileDataPlayerStatsMapper(profileData, username))
         
         return stats
 
