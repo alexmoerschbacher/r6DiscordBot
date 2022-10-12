@@ -11,8 +11,8 @@ class R6Service:
         try:
             preferredResults = tabStatsRequests.getPlayersStatsCurrentSeason(profiles)
             return preferredResults
-        except Exception as e:
-            logging.warning('tabStatsRequests is unavaliable: ' + e)
+        except Exception:
+            logging.exception('tabStatsRequests is unavaliable: ')
             uplayResults = uplayRequests.getPlayersStatsCurrentSeason(profiles)
             return uplayResults
 
