@@ -1,5 +1,5 @@
 class PlayerStats:
-    def __init__(self, profileId=None, seasonYear=None, seasonNumber=None, matchesPlayed=None, roundsPlayed=None, matchesWon=None, matchesLost=None, roundsWon=None, roundsLost=None, kills=None, assists=None, death=None, kd=None, username=None):
+    def __init__(self, profileId=None, seasonYear=None, seasonNumber=None, matchesPlayed=None, roundsPlayed=None, matchesWon=None, matchesLost=None, roundsWon=None, roundsLost=None, kills=None, assists=None, death=None, kd=None, username=None, mmr=None):
         self.profileId = profileId
         self.seasonYear = seasonYear
         self.seasonNumber = seasonNumber
@@ -14,3 +14,4 @@ class PlayerStats:
         self.death = death
         self.kd = kd
         self.username = username
+        self.mmr = mmr

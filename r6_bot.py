@@ -22,6 +22,9 @@ async def on_message(message):
     
     if message.content.startswith('/r6bot rankUs'):
         await message.channel.send(BotService.rankUs())
+    
+    if message.content.startswith('/r6bot mmr'):
+        await message.channel.send(BotService.mmr())
 
 
 client.run(os.getenv('TOKEN'))
