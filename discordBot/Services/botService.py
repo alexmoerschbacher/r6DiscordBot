@@ -59,6 +59,10 @@ class BotService:
         except:
             logging.exception('Chart Service ran into an issue: ')
             return 'One of the APIs required for this command is down. Please try again later.'
+    
+
+    def help():
+        return '/r6bot rankUs - Returns ranks in order of K/D \n /r6bot mmr - Returns ranks in order of mmr \n /rbbot kill chart - returns a chart displaying all kills'
 
     
     

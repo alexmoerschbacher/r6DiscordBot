@@ -10,6 +10,8 @@ class ChartService():
 
         ax.set_ylabel('Kills')
 
+        ax.set_title('Kills Per Player')
+
         fig = plt.gcf()
 
         return self.fig2img(fig)

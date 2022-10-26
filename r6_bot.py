@@ -28,6 +28,9 @@ async def on_message(message):
     
     if message.content.startswith('/r6bot kill chart'):
         await message.channel.send(file=discord.File(BotService.charts(), 'kd_charts.png'))
+    
+    if message.content.startswith('/r6bot help'):
+        await message.channel.send(BotService.help())
 
 
 client.run(os.getenv('TOKEN'))
