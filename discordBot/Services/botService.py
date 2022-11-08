@@ -5,7 +5,7 @@ from discordBot.Services.chartService import ChartService
 from r6Service import R6Service
 import discord
 
-
+NOSQUADMATES = "It loooks like you're lacking squadmates why don't you add a squadmate using the /r6bot add user command first"
 class BotService:
     
     def get_kd(stat: PlayerStats):
@@ -16,6 +16,8 @@ class BotService:
         stats = list()
         try:    
             stats = r6Service.getCurrentSeasonStats(message)
+            if len(stats) == 0:
+                return NOSQUADMATES
             stats.sort(key=lambda stat: stat.kd, reverse=True)
 
             message = ''
@@ -29,11 +31,13 @@ class BotService:
             return 'One of the APIs required for this command is down. Please try again later.'
     
 
-    def mmr():
+    def mmr(message: discord.message):
         r6Service = R6Service()
         stats = list()
         try:
-            stats = r6Service.getCurrentSeasonStats()
+            stats = r6Service.getCurrentSeasonStats(message)
+            if len(stats) == 0:
+                return NOSQUADMATES
             stats.sort(key=lambda stat: stat.mmr, reverse=True)
 
             message = ''
@@ -45,11 +49,13 @@ class BotService:
         except:
             return 'One of the APIs required for this command is down. Please try again later.'
     
-    def charts():
+    def charts(message: discord.message):
         r6Service = R6Service()
         stats = list()
         try:
-            stats = r6Service.getCurrentSeasonStats()
+            stats = r6Service.getCurrentSeasonStats(message)
+            if len(stats) == 0:
+                return NOSQUADMATES
             stats.sort(key = lambda stat: stat.mmr, reverse=True)
             username = []
             kills = []
@@ -66,7 +72,7 @@ class BotService:
     
 
     def help():
-        return '/r6bot rankUs - Returns ranks in order of K/D \n /r6bot mmr - Returns ranks in order of mmr \n /rbbot kill chart - returns a chart displaying all kills'
+        return '/r6bot rankUs - Returns ranks in order of K/D \n /r6bot mmr - Returns ranks in order of mmr \n /r6bot kill chart - returns a chart displaying all kills \n /r6bot add user <username> - Adds a user to your squad (use their uplay name) \n /r6bot remove user <username> - Removes a user from your squad'
     
     def addUser(message: discord.Message):
         usernames = message.content.split()

@@ -24,10 +24,13 @@ async def on_message(message):
         await message.channel.send(BotService.rankUs(message))
     
     if message.content.startswith('/r6bot mmr'):
-        await message.channel.send(BotService.mmr())
+        await message.channel.send(BotService.mmr(message))
     
     if message.content.startswith('/r6bot kill chart'):
-        await message.channel.send(file=discord.File(BotService.charts(), 'kd_charts.png'))
+        charts = BotService.charts(message)
+        if isinstance(charts, (str)):
+            await message.channel.send(charts)
+        await message.channel.send(file=discord.File(charts, 'kd_charts.png'))
     
     if message.content.startswith('/r6bot help'):
         await message.channel.send(BotService.help())
