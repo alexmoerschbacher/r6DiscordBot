@@ -1,7 +1,9 @@
 import logging
 from Models.playerStats import PlayerStats
+from Repository.repository import Repository
 from discordBot.Services.chartService import ChartService
 from r6Service import R6Service
+import discord
 
 
 class BotService:
@@ -63,6 +65,16 @@ class BotService:
 
     def help():
         return '/r6bot rankUs - Returns ranks in order of K/D \n /r6bot mmr - Returns ranks in order of mmr \n /rbbot kill chart - returns a chart displaying all kills'
+    
+    def addUser(message: discord.Message):
+        usernames = message.content.split()
+        if len(usernames) < 3:
+            return 'You need to provide the usernames of the users you want to add'
+        usernames = usernames[3:]
+        repository = Repository()
+        repository = repository.addUser(usernames, message)
+        return 'Users added sucessfully'
+
 
     
     

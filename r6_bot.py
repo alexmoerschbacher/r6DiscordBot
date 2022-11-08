@@ -32,5 +32,8 @@ async def on_message(message):
     if message.content.startswith('/r6bot help'):
         await message.channel.send(BotService.help())
 
+    if message.content.startswith('/r6bot add user'):
+        await message.channel.send(BotService.addUser(message))
+
 
 client.run(os.getenv('TOKEN'))

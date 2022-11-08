@@ -13,9 +13,20 @@ class TabStatsServiceClient:
     
 
     @cached(TTLCache(maxsize=1024, ttl=600))
-    def cacheAbleRequest(self, request):
-        params = {
-            'update': 'true'
-        }
+    def cacheAbleRequest(self, request, username=None):
+        params = {}
+        if username == None:
+            params = {
+                'update': 'true'
+            }
+        else:
+            params['display_name'] = username
+            params['platform'] = 'uplay'
         response = get(request, params = params)
         return response
+
+    def getPlayerProfileId(self, username):
+        request = 'https://r6.apitab.net/website/search'
+        response = self.cacheAbleRequest(request, username)
+        profileId = response.json()
+        return profileId[0]['profile']["user_id"]
