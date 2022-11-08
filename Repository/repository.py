@@ -36,5 +36,10 @@ class Repository:
             SquadMember.delete().where(SquadMember.squad_member_ubisoft_id == ubisoftId, SquadMember.squad_id == squad).execute()
         db.close()
         return
-
-            
+    
+    def getSquadMembers(self, message: discord.Message):
+        db = PostgresqlDatabase('r6bot', user='r6botclient', password='botPassword', port=5433)
+        db.connect()
+        squad = Squad.select().where(Squad.user_id == str(message.author.id))
+        squadMembers = SquadMember.select().where(SquadMember.squad_id == squad)
+        return squadMembers

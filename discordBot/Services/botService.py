@@ -11,19 +11,21 @@ class BotService:
     def get_kd(stat: PlayerStats):
         return stat.kd
     
-    def rankUs():
+    def rankUs(message: discord.message):
         r6Service = R6Service()
         stats = list()
         try:    
-            stats = r6Service.getCurrentSeasonStats()
+            stats = r6Service.getCurrentSeasonStats(message)
             stats.sort(key=lambda stat: stat.kd, reverse=True)
 
             message = ''
             place = 1
             for stat in stats:
                 message = message + str(place) + '. ' + stat.username + ' KD: ' + str(stat.kd) + '\n'
+                place += 1
             return message            
         except:
+            logging.exception('RankUs ran into an issue')
             return 'One of the APIs required for this command is down. Please try again later.'
     
 
