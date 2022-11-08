@@ -75,6 +75,14 @@ class BotService:
         repository = repository.addUser(usernames, message)
         return 'Users added sucessfully'
 
+    def removeUser(message: discord.Message):
+        usernames = message.content.split()
+        if len(usernames) < 3:
+            return 'You need to provide the usernames of the users you want to add'
+        usernames = usernames[3:]
+        repository = Repository()
+        repository = repository.removeUser(usernames, message)
+        return 'Users removed successfully'
 
     
     

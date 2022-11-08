@@ -23,5 +23,18 @@ class Repository:
                 newSquadMember.save()
         db.close()
         return
+    
+    def removeUser(self, usernames: List[str], message: discord.Message):
+        db = PostgresqlDatabase('r6bot', user='r6botclient', password='botPassword', port=5433)
+        tabServiceClient = TabStatsServiceClient()
+        db.connect()
+        squad = Squad.select().where(Squad.user_id == str(message.author.id))
+        if not squad.exists():
+            return
+        for username in usernames:
+            ubisoftId = tabServiceClient.getPlayerProfileId(username)
+            SquadMember.delete().where(SquadMember.squad_member_ubisoft_id == ubisoftId, SquadMember.squad_id == squad).execute()
+        db.close()
+        return
 
             
