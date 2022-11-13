@@ -60,12 +60,19 @@ class BotService:
             username = []
             kills = []
             deaths = []
+            colors = []
             for stat in stats:
                 username.append(stat.username)
                 kills.append(stat.kills)
                 deaths.append(stat.death)
+                if len(colors) == 0:
+                    colors.append('green')
+                else:
+                    colors.append('orange')
+            if len(colors) > 1:
+                colors[-1] = 'red'
             chartService = ChartService()
-            return chartService.killChart(username, kills)
+            return chartService.killChart(username, kills, colors)
         except:
             logging.exception('Chart Service ran into an issue: ')
             return 'One of the APIs required for this command is down. Please try again later.'

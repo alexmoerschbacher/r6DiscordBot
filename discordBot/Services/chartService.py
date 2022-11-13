@@ -1,16 +1,26 @@
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import io
 
 class ChartService():
 
-    def killChart(self, username, kills):
+    def killChart(self, username, kills, colors):
+        mpl.rcParams['axes.labelcolor'] = 'White'
+        mpl.rcParams['text.color'] = 'White'
+        mpl.rcParams['xtick.color'] = 'White'
+        mpl.rcParams['ytick.color'] = 'White'
+        mpl.rcParams['font.size'] = '12'
         f, ax = plt.subplots()
-
-        ax.bar(username, kills)
+        #Not using colors rn
+        ax.bar(username, kills, color='orange')
 
         ax.set_ylabel('Kills')
-
+    
         ax.set_title('Kills Per Player')
+
+        ax.set_facecolor('#36393e')
+
+        f.set_facecolor('#36393e')
 
         fig = plt.gcf()
 
