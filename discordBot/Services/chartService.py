@@ -16,7 +16,7 @@ class ChartService():
 
         ax.set_ylabel('Kills')
     
-        ax.set_title('Kills Per Player')
+        ax.set_title('Y7S3: BRUTAL SWARM KILLS')
 
         ax.set_facecolor('#36393e')
 
