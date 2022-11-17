@@ -7,15 +7,17 @@ import discord
 
 NOSQUADMATES = "It loooks like you're lacking squadmates why don't you add a squadmate using the /r6bot add user command first"
 class BotService:
-    
+    def __init__(self):
+        self.r6Service = R6Service()
+        self.repository = Repository()
+        self.chartService = ChartService()
     def get_kd(stat: PlayerStats):
         return stat.kd
     
-    def rankUs(message: discord.message):
-        r6Service = R6Service()
+    def rankUs(self, message: discord.message):
         stats = list()
         try:    
-            stats = r6Service.getCurrentSeasonStats(message)
+            stats = self.r6Service.getCurrentSeasonStats(message)
             if len(stats) == 0:
                 return NOSQUADMATES
             stats.sort(key=lambda stat: stat.kd, reverse=True)
@@ -31,11 +33,10 @@ class BotService:
             return 'One of the APIs required for this command is down. Please try again later.'
     
 
-    def mmr(message: discord.message):
-        r6Service = R6Service()
+    def mmr(self, message: discord.message):
         stats = list()
         try:
-            stats = r6Service.getCurrentSeasonStats(message)
+            stats = self.r6Service.getCurrentSeasonStats(message)
             if len(stats) == 0:
                 return NOSQUADMATES
             stats.sort(key=lambda stat: stat.mmr, reverse=True)
@@ -49,11 +50,10 @@ class BotService:
         except:
             return 'One of the APIs required for this command is down. Please try again later.'
     
-    def charts(message: discord.message):
-        r6Service = R6Service()
+    def charts(self, message: discord.message):
         stats = list()
         try:
-            stats = r6Service.getCurrentSeasonStats(message)
+            stats = self.r6Service.getCurrentSeasonStats(message)
             if len(stats) == 0:
                 return NOSQUADMATES
             stats.sort(key = lambda stat: stat.mmr, reverse=True)
@@ -71,32 +71,29 @@ class BotService:
                     colors.append('orange')
             if len(colors) > 1:
                 colors[-1] = 'red'
-            chartService = ChartService()
-            return chartService.killChart(username, kills, colors)
+            return self.chartService.killChart(username, kills, colors)
         except:
             logging.exception('Chart Service ran into an issue: ')
             return 'One of the APIs required for this command is down. Please try again later.'
     
 
-    def help():
+    def help(self):
         return '/r6bot rankUs - Returns ranks in order of K/D \n /r6bot mmr - Returns ranks in order of mmr \n /r6bot kill chart - returns a chart displaying all kills \n /r6bot add user <username> - Adds a user to your squad (use their uplay name) \n /r6bot remove user <username> - Removes a user from your squad'
     
-    def addUser(message: discord.Message):
+    def addUser(self, message: discord.Message):
         usernames = message.content.split()
-        if len(usernames) < 3:
+        if len(usernames) < 4:
             return 'You need to provide the usernames of the users you want to add'
         usernames = usernames[3:]
-        repository = Repository()
-        repository = repository.addUser(usernames, message)
+        self.repository.addUser(usernames, message)
         return 'Users added sucessfully'
 
-    def removeUser(message: discord.Message):
+    def removeUser(self, message: discord.Message):
         usernames = message.content.split()
-        if len(usernames) < 3:
-            return 'You need to provide the usernames of the users you want to add'
+        if len(usernames) < 4:
+            return 'You need to provide the usernames of the users you want to remove'
         usernames = usernames[3:]
-        repository = Repository()
-        repository = repository.removeUser(usernames, message)
+        self.repository.removeUser(usernames, message)
         return 'Users removed successfully'
 
     

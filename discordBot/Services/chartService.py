@@ -1,10 +1,11 @@
+from typing import List
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import io
 
 class ChartService():
 
-    def killChart(self, username, kills, colors):
+    def killChart(self, username: List[str], kills, colors: List[str]):
         mpl.rcParams['axes.labelcolor'] = 'White'
         mpl.rcParams['text.color'] = 'White'
         mpl.rcParams['xtick.color'] = 'White'

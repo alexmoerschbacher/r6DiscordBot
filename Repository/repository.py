@@ -4,7 +4,8 @@ import discord
 from peewee  import *
 from Models.Database.tables import Squad, User, SquadMember
 from serviceClients.tabStatsServiceClient import TabStatsServiceClient
-
+from dotenv import load_dotenv
+load_dotenv()
 class Repository:
 
     def __init__(self):

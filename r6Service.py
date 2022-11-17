@@ -19,7 +19,4 @@ class R6Service:
             logging.exception('tabStatsRequests is unavaliable: ')
             uplayResults = uplayRequests.getPlayersStatsCurrentSeason(profiles)
             return uplayResults
-
-service = R6Service()
-
     
