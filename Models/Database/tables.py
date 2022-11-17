@@ -1,6 +1,9 @@
 from peewee  import *
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-db = PostgresqlDatabase('r6bot', user='r6botclient', password='botPassword', port=5433)
+db = PostgresqlDatabase(os.getenv('DBSCHEMA'), user=os.getenv('DBUSERNAME'), password=os.getenv('DBPASSWORD'), port=os.getenv('DBPORT'))
 
 class User(Model):
     user_id = CharField(primary_key=True)
