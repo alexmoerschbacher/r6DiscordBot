@@ -35,9 +35,5 @@ db.connect()
 
 db.create_tables([User, Squad, SquadMember])
 
-print("SUCCESS")
-
-db.execute_sql("SELECT * FROM USER")
-
 #user = User.create(username ="Todd")
 #user.save()
